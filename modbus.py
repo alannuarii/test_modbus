@@ -1,14 +1,10 @@
 import time
-import os
 from pymodbus.client import ModbusTcpClient
-from dotenv import load_dotenv
-
-load_dotenv()
 
 def read_modbus_data():
     # Konfigurasi koneksi Modbus
-    modbus_host = os.getenv("IP")
-    modbus_port = os.getenv("PORT")
+    modbus_host = "192.168.0.1"
+    modbus_port = 502
 
     # Inisialisasi klien Modbus
     client = ModbusTcpClient(modbus_host, port=modbus_port)
@@ -23,8 +19,8 @@ def read_modbus_data():
             break
 
         # Membaca 2 input register mulai dari address 24
-        address = 24
-        count = 2
+        address = 0
+        count = 10
         try:
             result = client.read_input_registers(address, count, slave=1)
             if not result.isError():
