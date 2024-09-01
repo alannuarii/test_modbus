@@ -3,7 +3,7 @@ from pymodbus.client import ModbusTcpClient
 
 def read_modbus_data():
     # Konfigurasi koneksi Modbus
-    modbus_host = "192.168.0.1"
+    modbus_host = "192.168.0.231"
     modbus_port = 502
 
     # Inisialisasi klien Modbus
@@ -19,13 +19,13 @@ def read_modbus_data():
             break
 
         # Membaca 2 input register mulai dari address 24
-        address = 0
-        count = 10
+        address = 27
+        count = 1
         try:
             result = client.read_input_registers(address, count, slave=1)
             if not result.isError():
                 # Menampilkan data yang dibaca
-                print(f"Data dari address {address}: {result.registers}")
+                print(f"Data dari address {address}: {result.registers[0] / 10}")
             else:
                 print(f"Gagal membaca data dari Modbus: {result}")
         except Exception as e:
